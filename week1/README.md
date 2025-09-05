@@ -1,7 +1,7 @@
 # Week 1 notes
-### *Reading: Douglas Rushkoff, Program or Be Programmed (Introduction)*
+### :books: *Reading: Douglas Rushkoff, Program or Be Programmed (Introduction)*
 
-**Quote 1:**
+**:space_invader: Quote 1:**
 
 > Before, failing meant surrendering our agency to a new elite. In a digital age, failure could mean relinquishing our nascent collective agency to the machines themselves. (page 14)
 
@@ -25,4 +25,3 @@ This quote
 
 ---
 
-:joy:
