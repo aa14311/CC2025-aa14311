@@ -9,7 +9,7 @@ This quote
 
 ---
 
-**Quote 2:**
+**:book: Quote 2:**
 
 > The Torah was not merely a by- product of text, but a code of ethics for dealing with the highly abstracted, text-based society that was to characterize the next two millennia. (page 16)
 
@@ -17,7 +17,7 @@ This quote
 
 ---
 
-**Quote 3:**
+**:thought_balloon: Quote 3:**
 
 > The industrial age challenged us to rethink the limits of the human body: Where does my body end and the tool begin? The digital age challenges us to rethink the limits of the human mind: What are the boundaries of my cognition? (page 16)
 
