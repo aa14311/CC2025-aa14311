@@ -1,61 +1,26 @@
 # Week 1 notes
+### *Reading: Douglas Rushkoff, Program or Be Programmed (Introduction)*
+
+**Quote 1:**
+
+> Before, failing meant surrendering our agency to a new elite. In a digital age, failure could mean relinquishing our nascent collective agency to the machines themselves.
+
+This quote 
 
 ---
 
-This is a README file that can be used to describe and document your assignment.
+**Quote 2:**
 
-Markdown Cheatsheet (from [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)):
+> The Torah was not merely a by- product of text, but a code of ethics for dealing with the highly abstracted, text-based society that was to characterize the next two millennia
+
+This quote 
 
 ---
 
-# Heading1
-## Heading2
-### Heading3
-#### Heading4
-##### Heading5
-###### Heading6
+**Quote 3:**
 
-**bold text**
+> The digital age challenges us to rethink the limits of the human mind: What are the boundaries of my cognition?
 
-*italicized text*
+This quote 
 
-~~strikethrough text~~
-
-Ordered List:
-1. First item
-2. Second item
-3. Third item
-
-Unordered List:
-- First item
-- Second item
-- Third item
-
-`short code block`
-
-```
-extended code block
-fun() {
-  return 0
-}
-```
-
-Link:  
-[linked text](https://www.example.com)
-
-
-Image with url:  
-![image description](https://dm-gy-6063-2024f-b.github.io/assets/homework/02/clark-espaco-modulado-00.jpg)
-
-
-Image on repo:  
-![image description](./file-name.jpg)
-
-
-To start a new line, add two spaces at the end of a line, like this:  
-this is a new line.
-
-
-To start a new paragraph, leave an empty line between two lines of text.
-
-This is a new paragraph.
+---
