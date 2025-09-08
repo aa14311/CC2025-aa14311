@@ -13,7 +13,7 @@ This quote made me think of power imbalances and how machines will play into thi
 
 > The Torah was not merely a by- product of text, but a code of ethics for dealing with the highly abstracted, text-based society that was to characterize the next two millennia. (page 16)
 
-I think about the establishments and rules created for society. I think about the relevance of rules set in previous times for current environments.
+I think about the establishments and rules created for society. The relevance of rules set in previous times for current environments.
 
 ---
 
