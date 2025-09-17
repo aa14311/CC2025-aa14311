@@ -1,7 +1,7 @@
 
 
 function setup() { // runs once at the start
-  createCanvas(500,600);
+  createCanvas(500,620);
   // added dimensions to fit the size of the original image
   background ('rgba(81, 223, 81, 0.25)'); // added green color to background 
   // createCanvas is a function that creates a canvas for our p5.js
