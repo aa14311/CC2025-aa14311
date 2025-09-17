@@ -72,5 +72,5 @@ function draw() { // runs in a loop after setup
 
   fill('rgba(132, 181, 230, 0.6)');
   rotate(6.29); 
-  rect(126,267,160,7);
+  rect(126,267,170,7);
 }
