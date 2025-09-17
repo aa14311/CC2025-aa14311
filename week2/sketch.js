@@ -11,7 +11,7 @@ function setup() { // runs once at the start
 }
 
 function draw() { // runs in a loop after setup 
-  fill('rgba(57, 25, 199, 0.25)');
+  fill('rgba(98, 161, 188, 0.25)');
   triangle(100, 450, 430, 350, 140, 100);
   
   fill('rgba(222, 120, 86, 0.25)');
@@ -70,7 +70,7 @@ function draw() { // runs in a loop after setup
   rotate(5.2); 
   rect(100,260,50,7);
 
-  fill('rgba(132, 181, 230, 0.6)');
+  fill('rgba(58, 17, 182, 0.82)');
   rotate(6.29); 
   rect(126,267,170,7);
 }
