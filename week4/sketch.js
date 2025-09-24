@@ -22,7 +22,21 @@ function draw() {
   // that enclosure
   push(); // push indicates the beginning of an isolated block
 
-  fill("pink"); // instead of the manual 100+100 on each point // takes original point from 0,0 on top left and now has a new 0,0 point
+  if(mouseX>width/2 && mouseY>height/2){ //if the test inside the () is met...
+    fill("pink");//run this code
+  } else if(mouseX<width/2 && mouseY<height/2){
+    fill("orange");
+  } else { // otherwise...    
+    fill("yellow");// run this other code
+  }
+
+    if(mouseIsPressed == true){
+      fill("red");
+    }
+
+    //mouseIsPressed is a system variable that switches
+    // from false to true when the mouse is down
+
   translate(width/2,height/2);
   let angle; 
   // map is a function that scales numbers proportionately 
