@@ -104,7 +104,7 @@ function draw() {
   vertex(windowWidth - 392, windowHeight - 223); // bottom left of magenta rectangle
   endShape(CLOSE);
 
-  fill("rgba(0, 0, 0, 0.6)");
+  fill("rgba(135, 109, 18, 0.6)");
   beginShape();
   vertex(windowWidth - 455, windowHeight - 90); // top left of black square
   vertex(windowWidth - 425, windowHeight - 90); // top right of black square
