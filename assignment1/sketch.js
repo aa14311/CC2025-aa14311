@@ -1,22 +1,22 @@
 function setup() {
   createCanvas(windowWidth = 510, windowHeight = 630);
-  background ('rgba(81, 223, 81, 0.25)');
+  background ('#efe3caff');
 }
 
 function draw() {
   
   noStroke();
-  fill("rgba(230, 139, 139, 1)");
+  fill('#d2a679');
   beginShape(); // large triangle in the center position
   vertex(windowWidth - 350, windowHeight - 130); //leftmost coordinate
   vertex(windowWidth - 350, windowHeight - 530); //topright coordinate
   vertex(windowWidth - 80, windowHeight - 230); //bottom-most coordinate
   endShape(CLOSE);
 
-  fill('rgba(25, 121, 156, 0.25)');
+  fill('#52796f');
   circle(windowWidth - 150, windowHeight - 150, 150); // circle position below triangle
 
-  fill("rgba(29, 41, 151, 1)")
+  fill('#6a899aff')
   beginShape();
   vertex(windowWidth - 360, windowHeight - 480); //top blue diamond
   vertex(windowWidth - 330, windowHeight - 440); //right blue diamond 
@@ -24,7 +24,7 @@ function draw() {
   vertex(windowWidth - 400, windowHeight - 450); // left blue diamond
   endShape(CLOSE);
 
-  fill("rgba(14, 107, 67, 1)");
+  fill('#354f52');
   beginShape();
   vertex(windowWidth - 435, windowHeight - 385); //top left green rectangle
   vertex(windowWidth - 250, windowHeight - 456); //top right green rectangle
@@ -32,7 +32,7 @@ function draw() {
   vertex(windowWidth - 414, windowHeight - 325); //bottom left green rectangle
   endShape(CLOSE);
 
-  fill("rgba(130, 33, 33, 1)");
+  fill('#bc4b51');
   beginShape();
   vertex(windowWidth - 315, windowHeight - 380); // top left red square
   vertex(windowWidth - 290, windowHeight - 390); // top right red square
@@ -40,7 +40,7 @@ function draw() {
   vertex(windowWidth - 305, windowHeight - 350); // bottom left red square
   endShape(CLOSE);
 
-  fill("rgba(109, 152, 221, 1)");
+  fill('#7f5539');
   beginShape();
   vertex(windowWidth - 229, windowHeight - 402); // top left of light blue rectangle
   vertex(windowWidth - 188, windowHeight - 420); // top right of light blue rectangle
@@ -48,7 +48,7 @@ function draw() {
   vertex(windowWidth - 226, windowHeight - 394); // bottom left of light blue rectangle
   endShape(CLOSE);
 
-  fill("rgba(2, 29, 72, 1)");
+  fill('#b5838d');
   beginShape();
   vertex(windowWidth - 243, windowHeight - 389); // top left of dark blue rectangle
   vertex(windowWidth - 102, windowHeight - 450); // top right of dark blue rectangle
@@ -56,7 +56,7 @@ function draw() {
   vertex(windowWidth - 239, windowHeight - 377); // bottom left of dark blue rectangle
   endShape(CLOSE);
 
-  fill("rgba(100, 79, 26, 0.6)");
+  fill('#8d99ae');
   beginShape();
   vertex(windowWidth - 210, windowHeight - 295); // top left of brownish rectangle
   vertex(windowWidth - 50, windowHeight - 456); // top right of brownish rectangle
@@ -64,7 +64,7 @@ function draw() {
   vertex(windowWidth - 195, windowHeight - 277); // bottom left of brownish rectangle
   endShape(CLOSE);
 
-  fill("rgba(244, 201, 93, 0.6)");
+  fill('#e9c46a');
   beginShape();
   vertex(windowWidth - 120, windowHeight - 371); // top left of yellow rectangle
   vertex(windowWidth - 80, windowHeight - 412); // top right of yellow rectangle
@@ -72,7 +72,7 @@ function draw() {
   vertex(windowWidth - 96, windowHeight - 347); // bottom left of yellow rectangle
   endShape(CLOSE);
   
-  fill("rgba(66, 63, 57, 0.6)");
+  fill('#904532ff');
   beginShape();
   vertex(windowWidth - 216, windowHeight - 270); // top left of grey rectangle
   vertex(windowWidth - 115, windowHeight - 375); // top right of grey rectangle
@@ -80,7 +80,7 @@ function draw() {
   vertex(windowWidth - 207, windowHeight - 261); // bottom left of grey rectangle
   endShape(CLOSE);
 
-  fill("rgba(108, 102, 197, 0.6)");
+  fill('#b5838d');
   beginShape();
   vertex(windowWidth - 400, windowHeight - 228); // top left of purple rectangle
   vertex(windowWidth - 312, windowHeight - 173); // top right of purple rectangle
@@ -88,7 +88,7 @@ function draw() {
   vertex(windowWidth - 405, windowHeight - 220); // bottom left of purple rectangle
   endShape(CLOSE);
 
-  fill("rgba(237, 110, 0, 0.6)");
+  fill('#7f5539');
   beginShape();
   vertex(windowWidth - 390, windowHeight - 165); // top left of orange rectangle
   vertex(windowWidth - 325, windowHeight - 260); // top right of orange rectangle
@@ -96,7 +96,7 @@ function draw() {
   vertex(windowWidth - 382, windowHeight - 160); // bottom left or orange rectangle
   endShape(CLOSE);
 
-  fill("rgba(197, 72, 174, 0.6)");
+  fill('#6a994e');
   beginShape();
   vertex(windowWidth - 380, windowHeight - 241); // top left of magenta rectangle
   vertex(windowWidth - 350, windowHeight - 222); // top right of magenta rectangle
@@ -112,7 +112,7 @@ function draw() {
   vertex(windowWidth - 455, windowHeight - 60); // bottom left of black square
   endShape(CLOSE);
 
-  fill("rgba(255, 36, 240, 0.75)");
+  fill("#dda15e");
   beginShape();
   vertex(windowWidth - 256, windowHeight - 86); // top left of hotpink rectangle
   vertex(windowWidth - 207, windowHeight - 70); // top right of hotpink rectangle
@@ -120,7 +120,7 @@ function draw() {
   vertex(windowWidth - 260, windowHeight - 78); // bottom left of hotpink rectangle
   endShape(CLOSE);
 
-  fill("rgba(20, 201, 177, 0.75)");
+  fill('#b5838d');
   beginShape();
   vertex(windowWidth - 233, windowHeight - 70); // top left of teal rectangle
   vertex(windowWidth - 77, windowHeight - 20); // top right of teal rectangle
