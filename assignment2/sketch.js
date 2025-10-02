@@ -2,15 +2,15 @@
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  colorMode(HSB);
 }
 
 function draw() {
   background("#f4f3c9ff");
   strokeWeight(5);
   stroke("#8f8edeff");
-  //fill("#edafa3ff")
 
-  let hue = 0;
+  let hue = 0; 
   let sat = 0;
   translate(-100,-80);
     for(let y = 0; y<height; y+=150){
@@ -20,6 +20,11 @@ function draw() {
         fill(hue,sat,90);
     push();
     translate(x,y);
+    //let rotation = map(x,0,width,0,.3);
+		//rotate(rotation);
+    //let circleSize;
+    //circleSize = map(y,50,height-50,100,10);
+    //circle(x,y,circleSize);
   beginShape();
   vertex(200, 100);
   vertex(220, 160);
