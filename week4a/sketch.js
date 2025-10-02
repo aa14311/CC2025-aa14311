@@ -16,9 +16,11 @@ function setup() {
 function draw() {
   background('#cab385ff');
 
-  //for(let y = 50; y < height-50; y+=100)
-  
+for(let y = 50; y < height-50; y+=100) {
   for(let x = 50;x<width-50;x+=100){
+    let circleSize;
+    circleSize = map(y,50,height-50,100,10);
+    circle(x,y,circleSize)
     push();
     translate(x,50); // this is starting point, essentially moving 0,0 point
     // everything within this push/pop block
@@ -30,9 +32,10 @@ function draw() {
     circle(0,0,100);
     circle(-15,-10,10)
     circle(15,-10,10)
-    let happiness;
+    //let happiness;
     happiness = map(x,0,width,-25,25);
     arc(0, 0, 60, 60, radians(0-happiness), radians(180+happiness));
     pop();
+    }
   }
 }

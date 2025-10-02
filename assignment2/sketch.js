@@ -1,4 +1,5 @@
-
+let bgColor = "#f4f3c9ff";
+let baseHUE = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -6,25 +7,24 @@ function setup() {
 }
 
 function draw() {
-  background("#f4f3c9ff");
+  background(bgColor);
   strokeWeight(5);
   stroke("#8f8edeff");
 
   let hue = 0; 
   let sat = 0;
-  translate(-100,-80);
+  translate(-100,-80); 
     for(let y = 0; y<height; y+=150){
       for(let x = 0; x<width; x+=180){
         hue = map(x,0,width,0,255);
 			  sat = map(y,0,height,0,255);
-        fill(hue,sat,90);
+        fill((hue + baseHUE) % 255, sat,90 );
     push();
     translate(x,y);
-    //let rotation = map(x,0,width,0,.3);
-		//rotate(rotation);
-    //let circleSize;
-    //circleSize = map(y,50,height-50,100,10);
-    //circle(x,y,circleSize);
+    let angle = map(mouseX, 0, width, 0, TWO_PI);
+    rotate(angle);
+    let s = map(mouseY, 0, height,0.3,2);
+    scale(s);
   beginShape();
   vertex(200, 100);
   vertex(220, 160);
@@ -40,4 +40,8 @@ function draw() {
   pop();
     }
   }
+}
+function mousePressed(){
+  bgColor = color(random(255), random(200, 255), random(150,255)); 
+  baseHUE = random(255);
 }
