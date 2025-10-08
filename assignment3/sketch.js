@@ -1,3 +1,6 @@
+//defined time variables for (1) flower growth (2) petal color change.
+//have not defined a third time variable, but will add a regrowth
+//time variable after x amount of time.
 let petalColor
 let growth = 0
 let startTime
@@ -5,29 +8,30 @@ let startTime
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
+  //setting transparency and minimum color variables to avoid dark tones. 
   petalColor = color(random(100, 255), random(100, 255), random(100, 255), 220)
   startTime = millis();
 }
 
 function draw() {
   background(0);
+  //calling the flower from the flower function below
   flower();
 }
 
-
 function flower() {
-  //seconds defined using millis function for petal growth
+  //seconds defined using millis function for petal growth. 
   let seconds = millis() / 1000;
 
   //when minute changes, reset fade and changes color
   let elapsed = floor((millis() - startTime)/1000);
 
-  //changes petal color every 3 seconds
+  //changes petal color every 3 seconds and avoid growth time at start
   if(elapsed % 3 ==0 && elapsed != 0){
     petalColor = color(random(100, 255), random(100, 255), random(100, 255), 220);
   }
 
-  //flower taken from p5js site
+  //flower code from p5js site
    for (var r31 = 0; r31 < 10; r31++) {
     stroke(85,107,47,20);
     strokeWeight(5);
