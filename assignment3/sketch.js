@@ -1,60 +1,57 @@
-let plants = [];
+let petalColor
+let growth = 0
+let startTime
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  for(let i = 0; i < 5; i++){
-    plants.push(makePlant());
-  }
+  noStroke();
+  petalColor = color(random(100, 255), random(100, 255), random(100, 255), 220)
+  startTime = millis();
 }
 
 function draw() {
-  background(0)
-  for(let i = 0; i < plants.length; i++){
-    drawPlant(plants[i]);
-  }
+  background(0);
+  flower();
 }
 
-function makePlant() {
-  //this function returns a plant object. (x position, baseSize, leavesCount, species, born, phase)
 
-  return {
-    x: random(40,width-40),
-    size: random(40,110),
-    leaves: floor(map(minute(),0,59,2,8)),
-    species: day() % 3,
-    born: {h: hour(), m: minute()},
-    phase: random(0,360),
-  };
+function flower() {
+  //seconds defined using millis function for petal growth
+  let seconds = millis() / 1000;
 
-}
+  //when minute changes, reset fade and changes color
+  let elapsed = floor((millis() - startTime)/1000);
 
-function drawPlant(p) {
-  push();
-  translate(p.x, height - 50); // base of plant
-
-  // draw stem
-  stroke('#3a5a40');
-  strokeWeight(6);
-  line(0, 0, 0, -p.size);
-
-  // draw leaves with gentle motion
-  for (let i = 0; i < p.leaves; i++) {
-    let y = map(i, 0, p.leaves - 1, -p.size * 0.2, -p.size);
-    let sway = sin(frameCount * 0.02 + p.phase + i) * 0.3; // natural motion
-    let angle = (i % 2 == 0 ? -PI / 4 : PI / 4) + sway;
-    drawLeaf(0, y, angle, p.size / 3);
+  //changes petal color every 3 seconds
+  if(elapsed % 3 ==0 && elapsed != 0){
+    petalColor = color(random(100, 255), random(100, 255), random(100, 255), 220);
   }
 
-  pop();
-}
-
-// helper: draws a leaf
-function drawLeaf(x, y, angle, leafSize) {
+  //flower taken from p5js site
+   for (var r31 = 0; r31 < 10; r31++) {
+    stroke(85,107,47,20);
+    strokeWeight(5);
+    if (seconds <= 10) {
+      line(180, 535, 180, 390 + frameCount / 10);
+    }
+    else {
+      line(180, 535, 180, 435);
+    }
+    noStroke();
+  }
+  
   push();
-  translate(x, y);
-  rotate(angle);
+  fill(petalColor);
+  translate(180, 385);
   noStroke();
-  fill('#81c784');
-  ellipse(0, 0, leafSize, leafSize / 2);
+  for (var r3 = 0; r3 < 10; r3++) {
+    if (frameCount <= 600) {
+      ellipse(0, 10 + frameCount / 20, 10 + frameCount / 40, 20 + frameCount / 20);
+    }
+    if (frameCount > 600) {
+      ellipse(0, 40, 25, 50)
+    }
+    rotate(PI / 5);
+  }
   pop();
 }
