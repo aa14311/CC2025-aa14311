@@ -1,55 +1,49 @@
-//global variables created for background color and base HUE of stars
-//baseHUE was used rather than RGB as I defined Colormode HSB in the
-//function setup
-let bgColor = "#f4f3c9ff";
+//global color variables created used for dynamic changes
+let bgColor = '#ecd3b6ff';
 let baseHUE = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //used HSB colormode (Hue, Saturation, Brightness)
-  colorMode(HSB);
+  colorMode(HSB); 
 }
 function draw() {
-  //set background color 
   background(bgColor);
-  //setting stroke properties for outlines of star
-  strokeWeight(4);
-  //setting the color of that outline/stoke
-  stroke("#000000ff");
+  strokeWeight(3);
 
-  //variables created for dynamic color of each star 
-  let hue = 0; 
+  //local variables created for star colors taken from your notes
+  let hue = 0;
   let sat = 0;
-  //translating canvas origin slightly to top left for better positioning
-  translate(-100,-80);
-  //followed this example taken from your notes. The outer loop iterates 
-  //over the rows and columns adjusting the spaces between each star
-    for(let y = 0; y<height; y+=150){
-      for(let x = 0; x<width; x+=180){
-        //mapping x and y position to a hue value for horizontal
-        //and vertical color gradient effect
-        hue = map(x,0,width,0,255);
-			  sat = map(y,0,height,0,255);
-        //set fill colors using hue, saturation, and brightness. Used baseHUE
-        //to allow random colors set in mousePressed function at the bottom of code.
-        //Used the modular division by 255 to ensure the resulting number from the
-        //sum of hue + basehue will never exceed 255, being the max value.
-        fill((hue + baseHUE) % 255, sat,90);
-    //used push to save the colors above and current transformation state.
-    push();
-    //translate to move origin of current star position with mouse
-    translate(x,y);
-    //rotates the star based on horiziontal mouse position
-    //TWO_PI setting rotating the star full 360 degrees.
-    let angle = map(mouseX, 0, width, 0, TWO_PI);
-    rotate(angle);
-    //scaling star size based on vertical mouse position. Used 0.1 and 3 for
-    //the min and max resizing values. 
-    let s = map(mouseY, 0, height,0.1,3);
-    scale(s);
-    //created the star shape using beginShape function. I took these
-    //points from chatGPT as I originally began started to create the
-    //star using the line function but was taking too long. 
+  
+  //nested for loop to create the grid of stars and set the spacing
+  //so they don't overlap or spread too far from each other
+  for(let x = 0; x < width; x +=180){ 
+    for(let y =0; y < height; y+=180){
+      hue = map(x,0,width,0,255);
+      sat = map(y,0,height,0,255);
+      //used your notes for the fill color and added the baseHUE
+      //in the parameters to allow random colors of stars. I also added
+      //the 255 settings so the stars are no longer white at start
+      fill(hue + baseHUE,sat + 255,255)
+      push();
+  //added the x and y parameters and settings so the stars
+  //are closer to the 0,0 point.
+  translate(x - 100,y - 80);
+  //used to balance the rotation of stars to stay closer in place with the original
+  //vertex points defined in the shape. Otherwise, the stars will stack
+  //and rotate out of position shown in the original submission and keeping
+  //a cleaner look closer to the 0,0 as the star shape was created first.
+  translate(200,180);
+  //adding the dynamic function so the stars spin as the mouse moves across
+  //the x axis, and the stars grow larger in scale as you move down the y axis
+  let angle = map(mouseX, 0, width, 0, TWO_PI);
+  rotate(angle);
+  //changed the parameters of the original star size to 1 so they are not
+  //small and oddly spaced shown in the original submission. The 2 setting
+  //updated so they don't scale too largely to recognize the shape.
+  let s = map(mouseY, 0, height,1,2);
+  scale(s);
+  translate(-200,-180);
+  //star shape created
   beginShape();
   vertex(200, 100);
   vertex(220, 160);
@@ -66,10 +60,8 @@ function draw() {
     }
   }
 }
-//changing effects when mouse is clicked
+//settings to randomize each color every time the mouse is clicked.
 function mousePressed(){
-  //changed background to a random HSB color for each click and randomly
-  //shifts baseHUE of stars for dynamic color effect
   bgColor = color(random(255), random(255), random(255)); 
   baseHUE = random(255);
 }
