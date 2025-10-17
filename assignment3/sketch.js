@@ -73,6 +73,6 @@ function draw() {
   noStroke();
   textSize(15);
   text('hour: ' + hour(),5,20)
-  text('minute: ' + minute(),5,50);
-  text('second: ' + second(),5,80);
+  text('minute: ' + minute(),5,45);
+  text('second: ' + second(),5,70);
 }
