@@ -3,71 +3,107 @@
  * Learn more about the ml5.js project: https://ml5js.org/
  * ml5.js license and Code of Conduct: https://github.com/ml5js/ml5-next-gen/blob/main/LICENSE.md
  *
- * This example demonstrates drawing skeletons on poses for the MoveNet model.
+ * This example demonstrates face tracking on live video through ml5.faceMesh.
  */
 
+let faceMesh;
 let video;
-let bodyPose;
-let poses = [];
-let connections;
+let faces = [];
+let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
 
 function preload() {
-  // Load the bodyPose model
-  bodyPose = ml5.bodyPose();
+  // Load the faceMesh model
+  faceMesh = ml5.faceMesh(options);
 }
 
 function setup() {
   createCanvas(640, 480);
-
-  // Create the video and hide it
+  // Create the webcam video and hide it
   video = createCapture(VIDEO);
   video.size(640, 480);
   video.hide();
-
-  // Start detecting poses in the webcam video
-  bodyPose.detectStart(video, gotPoses);
-  // Get the skeleton connection information
-  connections = bodyPose.getSkeleton();
+  // Start detecting faces from the webcam video
+  faceMesh.detectStart(video, gotFaces);
 }
 
 function draw() {
   // Draw the webcam video
   image(video, 0, 0, width, height);
 
-  // Draw the skeleton connections
-  for (let i = 0; i < poses.length; i++) {
-    let pose = poses[i];
-    for (let j = 0; j < connections.length; j++) {
-      let pointAIndex = connections[j][0];
-      let pointBIndex = connections[j][1];
-      let pointA = pose.keypoints[pointAIndex];
-      let pointB = pose.keypoints[pointBIndex];
-      // Only draw a line if both points are confident enough
-      if (pointA.confidence > 0.1 && pointB.confidence > 0.1) {
-        stroke(255, 0, 0);
-        strokeWeight(2);
-        line(pointA.x, pointA.y, pointB.x, pointB.y);
-      }
+  if(faces.length>0){ // check if face detected...
+    let leftEye = faces[0].leftEye.keypoints;
+    let rightEye = faces[0].rightEye.keypoints;
+    let mouth = faces[0].lips.keypoints;
+    fill(0,255,0);
+    // draw left eye
+    // beginShape();
+    // for(let i = 0; i<8;i++){
+    //   vertex(leftEye[i].x,leftEye[i].y);
+    // }
+    // for(let i = 16;i>7;i--){
+    //   vertex(leftEye[i].x,leftEye[i].y);
+    // }
+    // endShape();
+
+    // // draw right eye
+    //     beginShape();
+    // for(let i = 0; i<8;i++){
+    //   vertex(rightEye[i].x,rightEye[i].y);
+    // }
+    // for(let i = 16;i>7;i--){
+    //   vertex(rightEye[i].x,rightEye[i].y);
+    // }
+    // endShape();
+
+    let mouthOpenness = dist(mouth[15].x,mouth[15].y,mouth[5].x,mouth[5].y);
+    let mouthWidth = dist(mouth[0].x,mouth[0].y,mouth[20].x,mouth[20].y);
+    let normalizedOpenness = mouthOpenness/mouthWidth;
+    text(normalizedOpenness.toFixed(2),mouth[5].x,mouth[5].y+10);
+    if(normalizedOpenness>0.7){
+      fill("red");
+      let mouthIsOpen = true;
+    } else {
+      fill("green");
+      let mouthIsOpen = false;
     }
+    
+    beginShape();
+    for(let i = 0; i<10;i++){
+      //text(i,mouth[i].x,mouth[i].y);
+      vertex(mouth[i].x,mouth[i].y);
+      //text(i,mouth[i].x,mouth[i].y);
+      // 5 is bottom center
+      // 0 is left edge
+      // 20 is right edge
+      // 15  is top
+    }
+    for(let i = 20; i>9;i--){
+      vertex(mouth[i].x,mouth[i].y);
+      //text(i,mouth[i].x,mouth[i].y);
+    }
+    endShape();
   }
 
-  // Draw all the tracked landmark points
-  for (let i = 0; i < poses.length; i++) {
-    let pose = poses[i];
-    for (let j = 0; j < pose.keypoints.length; j++) {
-      let keypoint = pose.keypoints[j];
-      // Only draw a circle if the keypoint's confidence is bigger than 0.1
-      if (keypoint.confidence > 0.1) {
-        fill(0, 255, 0);
-        noStroke();
-        circle(keypoint.x, keypoint.y, 10);
-      }
-    }
-  }
+  // Draw all the tracked face points
+  // for (let i = 0; i < faces.length; i++) {
+  //   let face = faces[i];
+  //   for (let j = 0; j < face.keypoints.length; j++) {
+  //     let keypoint = face.keypoints[j];
+  //     fill(0, 255, 0);
+  //     noStroke();
+  //     text(j,keypoint.x, keypoint.y);
+  //   }
+  // }
 }
 
-// Callback function for when bodyPose outputs data
-function gotPoses(results) {
-  // Save the output to the poses variable
-  poses = results;
+// Callback function for when faceMesh outputs data
+function gotFaces(results) {
+  // Save the output to the faces variable
+  faces = results;
+}
+
+function mousePressed(){
+  if(faces.length>0){
+    console.log(faces[0]);
+  }
 }
