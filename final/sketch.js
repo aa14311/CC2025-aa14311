@@ -1,12 +1,13 @@
 // This code expands on an example found on youtube by Patt
 // Vira (https://youtu.be/cLXNxn5N-2Y) and references from
 // ml5 and matter for facemesh and physics calcuations. Thank you for
-// also providing the compositions for multiple functions displayed below.
+// also providing the composition for multiple functions displayed below.
 
 
 // Global variables created for face detection, physics calculations,
 // bubbles, and underwater environment. Classes created for bubble
 // and fishes for multi object production.
+
 const { Engine, Body, Bodies, Composite } = Matter;
 
 let engine;
@@ -82,7 +83,7 @@ function draw() {
       fish.y = random(height);
     }
   }
-  
+
   // Updating physics engine and creating logic that identifies the center
   // the mouth by using range of points on the lips from facemesh in order to 
   // create bubbles from the center mouth position. Adding logic for the
