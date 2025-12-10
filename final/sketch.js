@@ -109,7 +109,7 @@ function draw() {
   // calculate the mouth wideness set for the bubbles to produce. I prefer
   // the mouth openness set at .5 after multiple attempts at testing. Drawing
   // a small red circle that visualizes the position of the mouth centerpoint
-  // that changes to blue when mouth reaches beyond the .5 setting. 
+  // that changes to blue when mouth reaches beyond the .5 setting.
   if (faces.length > 0) {
     let mouth = faces[0].lips.keypoints;
     let mouthOpenness = dist(mouth[15].x, mouth[15].y, mouth[5].x, mouth[5].y);
@@ -131,8 +131,8 @@ function draw() {
   }
 }
 
-// Simple fish drawing with ellipse and triangle. Thought the orange
-// color would be a nice contrast with the blue background.
+// Simple fish drawing with ellipse and triangle. I picked the
+// orange color as I feel this would contrast well with the blue background.
 function drawFish(x, y, s, direction) {
   fill("#fb7100ff");
   push();
