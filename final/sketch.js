@@ -98,57 +98,27 @@ function draw() {
 
   if (faces.length > 0) {
     // check if face detected...
-let mouth = faces[0].lips.keypoints;
-let mouthOpenness = dist(mouth[15].x, mouth[15].y, mouth[5].x, mouth[5].y);
-let mouthWidth = dist(mouth[0].x, mouth[0].y, mouth[20].x, mouth[20].y);
-let normalizedOpenness = mouthOpenness / mouthWidth;
-// mouth center
-let mouthCenterX = (mouth[0].x + mouth[20].x) / 2;
-let mouthCenterY = (mouth[0].y + mouth[20].y) / 2;
-// radius you can adjust
-let radius = mouthWidth / 2;
+    let mouth = faces[0].lips.keypoints;
+    let mouthOpenness = dist(mouth[15].x, mouth[15].y, mouth[5].x, mouth[5].y);
+    let mouthWidth = dist(mouth[0].x, mouth[0].y, mouth[20].x, mouth[20].y);
+    let normalizedOpenness = mouthOpenness / mouthWidth;
+    // mouth center
+    let mouthCenterX = (mouth[0].x + mouth[20].x) / 2;
+    let mouthCenterY = (mouth[0].y + mouth[20].y) / 2;
+    // radius you can adjust
+    let radius = mouthWidth / 2;
 
-if (normalizedOpenness > 0.7) {
-  fill("green");
-  pMouthIsOpen = true;
-} else {
-  fill("red");
-  pMouthIsOpen = false;
-}
-noStroke();
-circle(mouthCenterX, mouthCenterY, radius/2);
+    if (normalizedOpenness > 0.5) {
+      fill("#09ade3ff");
+      pMouthIsOpen = true;
+    } else {
+      fill("#ff0400ff");
+      pMouthIsOpen = false;
+    }
+    noStroke();
+    circle(mouthCenterX, mouthCenterY, radius/2);
   }
-  drawGoggles(mouthCenterX, mouthCenterY);
-  //drawSnorkel();
 }
-
-function drawGoggles(mouthCenterX, mouthCenterY) {
-  noFill();
-  stroke(255);
-  strokeWeight(8);
-  ellipse(mouthCenterX-120, mouthCenterY, 180, 180);
-  ellipse(mouthCenterX+120, mouthCenterY, 180, 180);
-  line(mouthCenterX-30,mouthCenterY,mouthCenterX+30,mouthCenterY);
-  noStroke();
-  fill(0,100,160,50);
-  ellipse(mouthCenterX-120,mouthCenterY,170,170);
-  ellipse(mouthCenterX+120,mouthCenterY,170,170);
-  noFill();
-  stroke(0,50);
-  strokeWeight(30);
-  ellipse(mouthCenterX-120,mouthCenterY,220,220);
-  ellipse(mouthCenterX+120,mouthCenterY,220,220);
-}
-
-/*function drawSnorkel() {
-  stroke(255);
-  strokeWeight(15);
-  noFill();
-  let x = width/2+180;
-  let y = height/2-40;
-  line(x,y,x,y-150);
-  line(x,y-150,x+40,y-150);
-}*/
 
 function drawFish(x, y, s, direction) {
   fill(255, 100, 50);
@@ -156,7 +126,7 @@ function drawFish(x, y, s, direction) {
   translate(x, y);
   scale(direction, 1);
   ellipse(0, 0, s, s / 2);
-  triangle(-s / 2, 0, -s, -s / 4, -s, s / 4);
+  triangle(-s/2,0,-s,-s/4,-s,s/4);
   pop();
 }
 
