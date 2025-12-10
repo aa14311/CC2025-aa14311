@@ -6,7 +6,7 @@
 
 // Global variables created for face detection, physics calculations,
 // bubbles, and underwater environment. Classes created for bubble
-// and fishes for multi object production. 
+// and fishes for multi object production.
 const { Engine, Body, Bodies, Composite } = Matter;
 
 let engine;
