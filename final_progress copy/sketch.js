@@ -9,8 +9,15 @@ https://www.pattvira.com/
 ----------------------------------------
 */
 
+let faceMesh;
+let video;
+let faces = [];
+let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: true };
+let pMouthIsOpen = false;
 
-
+function preload() {
+  faceMesh = ml5.faceMesh(options);
+}
 const { Engine, Body, Bodies, Composite } = Matter;
 
 let engine;
@@ -20,9 +27,15 @@ let yOffset = 0;
 let fishes = [];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  engine = Engine.create();
+  createCanvas(640, 480);
 
+    video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+  // Start detecting faces from the webcam video
+  faceMesh.detectStart(video, gotFaces);
+
+  engine = Engine.create();
   ground = new Ground(200, 5, 400, 10); // since gravity is backwards in this example, the ground is the ceiling!
   engine.gravity.x = 0;
   engine.gravity.y = -0.25;
@@ -37,21 +50,22 @@ function setup() {
       speed: random(1,3),
       direction: random([1,-1])
     })
-  }
+  }  
+
 }
 
 function draw() {
-
   background(0,50,100);
   noStroke();
   fill(50,100,200,50);
   for(let y = 0; y<height; y+=20){
     for(let x = 0; x<width; x+=20){
-      let wave = sin((x+yOffset)* 0.05)*10+cos((y+yOffset)*0.05)*10;
+      let wave = sin((x+yOffset)* 0.07)*10+cos((y+yOffset)*0.07)*10;
       ellipse(x,y+wave,15,15);
-    }
-    yOffset += 10 //13 looks goood on web browser?
+    } 
   }
+  yOffset += 1
+  
 
   for(let fish of fishes){
     drawFish(fish.x,fish.y,fish.size,fish.direction);
@@ -70,8 +84,12 @@ function draw() {
   Engine.update(engine); // updating the physics world
   //for (let i = 0; i < bubbles.length; i++) {
   //  bubbles[i].display();
-  if (mouseIsPressed) {
-    bubbles.push(new Bubble(mouseX, mouseY, 20));
+if (pMouthIsOpen && faces.length > 0) {
+  let mouth = faces[0].lips.keypoints;
+  // Use center of mouth as spawn position
+  let centerX = ((mouth[10].x / video.width) * width);
+  let centerY = ((mouth[10].y / video.height) * height);
+  bubbles.push(new Bubble(centerX, centerY, 10));
   }
   for (let i = 0; i < bubbles.length; i++) {
     bubbles[i].display();
@@ -82,6 +100,37 @@ function draw() {
     bubbles.splice(i, 1);}}
   }
   ground.display();
+
+  if(faces.length>0){ // check if face detected...
+    let leftEye = faces[0].leftEye.keypoints;
+    let rightEye = faces[0].rightEye.keypoints;
+    let mouth = faces[0].lips.keypoints;
+    fill(0,255,0);
+    let mouthOpenness = dist(mouth[15].x,mouth[15].y,mouth[5].x,mouth[5].y);
+    let mouthWidth = dist(mouth[0].x,mouth[0].y,mouth[20].x,mouth[20].y);
+    let normalizedOpenness = mouthOpenness/mouthWidth;
+    if(normalizedOpenness>0.5){
+      fill("green");
+      let mouthIsOpen = true;
+      if(pMouthIsOpen == false){
+        pMouthIsOpen = true;
+        console.log("bang");
+      }
+    } else {
+      fill("red");
+      let mouthIsOpen = false;
+      pMouthIsOpen = false;
+    }
+    
+    beginShape();
+    for(let i = 0; i<10;i++){
+      vertex(mouth[i].x,mouth[i].y);
+    }
+    for(let i = 20; i>9;i--){
+      vertex(mouth[i].x,mouth[i].y);
+    }
+    endShape();
+  }
 }
 
 function drawFish (x,y,s,direction){
@@ -144,7 +193,6 @@ class Bubble {
     }
     stroke('#09ade3ff');
     circle(0, 0, this.r * 2);
-    
     pop();
   }
 }
@@ -167,4 +215,10 @@ class Ground {
     //rect(0, 0, this.w, this.h); // uncomment to draw ceiling
     pop();
   }
+}
+
+// Callback function for when faceMesh outputs data
+function gotFaces(results) {
+  // Save the output to the faces variable
+  faces = results;
 }
