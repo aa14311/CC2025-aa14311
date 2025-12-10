@@ -13,13 +13,13 @@ const { Engine, Body, Bodies, Composite } = Matter;
 let engine;
 let bubbles = [];
 let ground;
-let yOffset = 0;
+let waveSpeed = 0;
 let fishes = [];
 let faceMesh;
 let video;
 let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: true };
-let pMouthIsOpen = false;
+let mouthIsOpen = false;
 
 // Preload function for model to detect face
 function preload() {
@@ -36,7 +36,7 @@ function setup() {
   video.hide();
   faceMesh.detectStart(video, gotFaces);
   engine = Engine.create();
-  ground = new Ground(200, 5, 400, 10);
+  ground = new Ground(windowWidth, windowHeight, 400, 10); //200, 5
   engine.gravity.x = 0;
   engine.gravity.y = -0.25;
   Matter.Events.on(engine, "collisionStart", handleCollisions);
@@ -55,17 +55,17 @@ function setup() {
 }
 
 // Dark blue background color to represent the underwater setting. For
-// loop that creates the wave effect in background with yOffset that changes
+// loop that creates the wave effect in background with waveSpeed that changes
 // the movement and set at 1 for a preferred motion.
 function draw() {
-  yOffset += 1;
+  waveSpeed += 1;
   background(0, 50, 100);
   noStroke();
   fill(50, 100, 200, 50);
   for (let y = 0; y < height; y += 20) {
     for (let x = 0; x < width; x += 20) {
       let wave =
-        sin((x + yOffset) * 0.07) * 10 + cos((y + yOffset) * 0.07) * 10;
+        sin((x + waveSpeed) * 0.07) * 10 + cos((y + waveSpeed) * 0.07) * 10;
       ellipse(x, y + wave, 15, 15);
     }
   }
@@ -89,7 +89,7 @@ function draw() {
   // create bubbles from the center mouth position. Adding logic for the
   // bubbles to dissapear after x amount of time. 
   Engine.update(engine); 
-  if (pMouthIsOpen && faces.length > 0) {
+  if (mouthIsOpen && faces.length > 0) {
     let mouth = faces[0].lips.keypoints;
     let centerX = (mouth[0].x + mouth[20].x) / 2;
     let centerY = (mouth[0].y + mouth[20].y) / 2;
@@ -121,10 +121,10 @@ function draw() {
 
     if (normalizedOpenness > 0.5) {
       fill("#09ade3ff");
-      pMouthIsOpen = true;
+      mouthIsOpen = true;
     } else {
       fill("#ff0400ff");
-      pMouthIsOpen = false;
+      mouthIsOpen = false;
     }
     noStroke();
     circle(mouthCenterX, mouthCenterY, radius/3);
@@ -139,7 +139,7 @@ function drawFish(x, y, s, direction) {
   translate(x, y);
   scale(direction, 1);
   ellipse(0, 0, s, s / 2);
-  triangle(-s/2,0,-s,-s/4,-s,s/4);
+  triangle(-s/2,0,-s*.8,-s/4,-s*.8,s/4);
   pop();
 }
 
