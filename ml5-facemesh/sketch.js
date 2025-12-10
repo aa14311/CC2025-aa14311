@@ -28,7 +28,7 @@ function setup() {
 
 function draw() {
   // Draw the webcam video
-  image(video, 0, 0, width, height);
+  //image(video, 0, 0, width, height);
 
   if(faces.length>0){ // check if face detected...
     let leftEye = faces[0].leftEye.keypoints;
