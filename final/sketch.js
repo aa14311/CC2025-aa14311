@@ -36,7 +36,7 @@ function setup() {
   video.hide();
   faceMesh.detectStart(video, gotFaces);
   engine = Engine.create();
-  ground = new Ground(windowWidth, windowHeight, 400, 10); //200, 5
+  ground = new Ground(200, 5, 400, 10);
   engine.gravity.x = 0;
   engine.gravity.y = -0.25;
   Matter.Events.on(engine, "collisionStart", handleCollisions);
@@ -87,7 +87,7 @@ function draw() {
   // Updating physics engine and creating logic that identifies the center
   // the mouth by using range of points on the lips from facemesh in order to 
   // create bubbles from the center mouth position. Adding logic for the
-  // bubbles to dissapear after x amount of time. 
+  // bubbles to dissapear after x amount of time.
   Engine.update(engine); 
   if (mouthIsOpen && faces.length > 0) {
     let mouth = faces[0].lips.keypoints;
