@@ -109,7 +109,9 @@ function draw() {
   // calculate the mouth wideness set for the bubbles to produce. I prefer
   // the mouth openness set at .5 after multiple attempts at testing. Drawing
   // a small red circle that visualizes the position of the mouth centerpoint
-  // that changes to blue when mouth reaches beyond the .5 setting.
+  // that changes to blue when mouth reaches beyond the .5 setting. We were
+  // able to create the if statement by using the width and points on the
+  // mouth that measures the distance to identify where we establish activity.
   if (faces.length > 0) {
     let mouth = faces[0].lips.keypoints;
     let mouthOpenness = dist(mouth[15].x, mouth[15].y, mouth[5].x, mouth[5].y);
@@ -162,7 +164,8 @@ function handleCollisions(event) {
 // Bubble class with constructor that uses the physics engine for the
 // calculations of movement and positioning. 1500 bubble time as I liked
 // this timing of the bubbles disappearing in this sketch. Color to
-// slightly change when a collision or hit event occurs. 
+// slightly change when a collision or hit event occurs. Angular velocity se
+// to .2 as the preferred motion movement.
 class Bubble {
   constructor(x, y, r) {
     this.r = r;
