@@ -36,6 +36,7 @@ function preload() {
 // to start silent.
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  userStartAudio();
   bubbleSound = new p5.Oscillator('sine');
   bubbleSound.start();
   bubbleSound.amp(0);
@@ -203,11 +204,6 @@ function handleCollisions(event) {
       bodyB.plugin.particle.hit = true;
     }
   }
-}
-
-//function to start allow audio sounds
-function mousePressed() {
-    userStartAudio();
 }
 
 // Bubble class with constructor that uses the physics engine for the
