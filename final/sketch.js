@@ -84,7 +84,7 @@ function draw() {
   // Text to make interactive feature more obvious.
   fill(255);
   textSize(17);
-  text("Open/close your mouth to create some bubbles!", 15, 30);
+  text("Open/close your mouth to create some bubbles! (Sound On)", 15, 30);
   
   // For loop for fishes to move across the width of the screen so that they
   // wrap around from the other side.
