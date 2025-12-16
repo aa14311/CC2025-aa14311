@@ -3,10 +3,9 @@
 // ml5 and matter for facemesh and physics calcuations. Thank you for
 // also providing the composition for multiple functions displayed below.
 
-
 // Global variables created for face detection, physics calculations,
 // bubbles, and underwater environment. Classes created for bubble
-// and fishes for multi object production.
+// and fishes for multi object production. 
 
 const { Engine, Body, Bodies, Composite } = Matter;
 
@@ -20,6 +19,9 @@ let video;
 let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: true };
 let mouthIsOpen = false;
+// variables added for sound
+let osc, env;
+let lastBubbleTime = 0;
 
 // Preload function for model to detect face
 function preload() {
@@ -28,9 +30,17 @@ function preload() {
 
 // Setup to detect webcam video and tracking. Negative gravity
 // setting in order for the bubbles to rise while setting the ground
-// at the top as a static rectangle with collision settings.
+// at the top as a static rectangle with collision settings. A sine wave
+// oscillator with ADSR settings for a bubble-like sound. osc.amp(0)
+// to start silent.
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  osc = new p5.Oscillator('sine');
+  osc.start();
+  osc.amp(0);
+  env = new p5.Envelope();
+  env.setADSR(0.01, 0.2, 0.0, 0.0); 
+  env.setRange(0.5, 0);
   video = createCapture(VIDEO);
   video.size(windowWidth, windowHeight);
   video.hide();
@@ -70,6 +80,11 @@ function draw() {
     }
   }
 
+  // Text to make interactive feature more obvious.
+  fill(255);
+  textSize(17);
+  text("Open/close your mouth to create some bubbles!", 15, 30);
+
   // For loop for fishes to move across the width of the screen so that they
   // wrap around from the other side.
   for (let fish of fishes) {
@@ -94,6 +109,17 @@ function draw() {
     let centerX = (mouth[0].x + mouth[20].x) / 2;
     let centerY = (mouth[0].y + mouth[20].y) / 2;
     bubbles.push(new Bubble(centerX, centerY, 15));
+    
+    // Bubble sound settings to occur when the mouth for note to raise
+    // higher after .1 seconds. osc.freq(startFreq) to instantly reset
+    // the low note.
+  if (millis() - lastBubbleTime > 100) {
+      let startFreq = random(200, 400);
+      osc.freq(startFreq); 
+      osc.freq(startFreq + 300, 0.1); 
+      env.play(osc);
+      lastBubbleTime = millis();
+    }
   }
   for (let i = 0; i < bubbles.length; i++) {
     bubbles[i].display();
@@ -132,18 +158,18 @@ function draw() {
     // to produce, along with the text written for directions.
     push();
     translate(mouthCenterX, mouthCenterY);
-    // Eyes
+    // eyes
     fill("#30ce72e5");
     stroke(0);
     strokeWeight(3);
     ellipse(-20, 0, 30, 30);
     ellipse(20, 0, 30, 30);
-    // Connector between eyes
+    // eye connector
     rect(-5, -5, 10, 10);
-    // Snorkel tube
-    fill("#000000e5");
+    // tube
+    fill("#1f1e1ee5");
     rect(35, -40, 8, 50);
-    // Snorkel nozzle
+    // nozzle
     fill("#f70000e5");
     rect(32, -50, 14, 10);
     pop();
@@ -176,6 +202,11 @@ function handleCollisions(event) {
       bodyB.plugin.particle.hit = true;
     }
   }
+}
+
+//function to start allow audio sounds
+function mousePressed() {
+    userStartAudio();
 }
 
 // Bubble class with constructor that uses the physics engine for the
