@@ -20,7 +20,8 @@ let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: true };
 let mouthIsOpen = false;
 // variables added for sound
-let osc, env;
+let bubbleSound;
+let bubbleEnvelope;
 let lastBubbleTime = 0;
 
 // Preload function for model to detect face
@@ -31,16 +32,16 @@ function preload() {
 // Setup to detect webcam video and tracking. Negative gravity
 // setting in order for the bubbles to rise while setting the ground
 // at the top as a static rectangle with collision settings. A sine wave
-// oscillator with ADSR settings for a bubble-like sound. osc.amp(0)
+// oscillator with ADSR settings for a bubble-like sound. "amp(0)"
 // to start silent.
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  osc = new p5.Oscillator('sine');
-  osc.start();
-  osc.amp(0);
-  env = new p5.Envelope();
-  env.setADSR(0.01, 0.2, 0.0, 0.0); 
-  env.setRange(0.5, 0);
+  bubbleSound = new p5.Oscillator('sine');
+  bubbleSound.start();
+  bubbleSound.amp(0);
+  bubbleEnvelope = new p5.Envelope();
+  bubbleEnvelope.setADSR(0.01, 0.2, 0.0, 0.0); 
+  bubbleEnvelope.setRange(0.5, 0);
   video = createCapture(VIDEO);
   video.size(windowWidth, windowHeight);
   video.hide();
@@ -84,7 +85,7 @@ function draw() {
   fill(255);
   textSize(17);
   text("Open/close your mouth to create some bubbles!", 15, 30);
-
+  
   // For loop for fishes to move across the width of the screen so that they
   // wrap around from the other side.
   for (let fish of fishes) {
@@ -111,13 +112,13 @@ function draw() {
     bubbles.push(new Bubble(centerX, centerY, 15));
     
     // Bubble sound settings to occur when the mouth for note to raise
-    // higher after .1 seconds. osc.freq(startFreq) to instantly reset
+    // higher after .1 seconds. bubbleSound.freq(startFreq) to instantly reset
     // the low note.
   if (millis() - lastBubbleTime > 100) {
       let startFreq = random(200, 400);
-      osc.freq(startFreq); 
-      osc.freq(startFreq + 300, 0.1); 
-      env.play(osc);
+      bubbleSound.freq(startFreq); 
+      bubbleSound.freq(startFreq + 300, 0.1); 
+      bubbleEnvelope.play(bubbleSound);
       lastBubbleTime = millis();
     }
   }
