@@ -128,8 +128,25 @@ function draw() {
       fill("#ff0400ff");
       mouthIsOpen = false;
     }
-    noStroke();
-    circle(mouthCenterX, mouthCenterY, radius/3);
+    // Simple snorkel sketched to replace the previous red dot to signal bubbles
+    // to produce, along with the text written for directions.
+    push();
+    translate(mouthCenterX, mouthCenterY);
+    // Eyes
+    fill("#30ce72e5");
+    stroke(0);
+    strokeWeight(3);
+    ellipse(-20, 0, 30, 30);
+    ellipse(20, 0, 30, 30);
+    // Connector between eyes
+    rect(-5, -5, 10, 10);
+    // Snorkel tube
+    fill("#000000e5");
+    rect(35, -40, 8, 50);
+    // Snorkel nozzle
+    fill("#f70000e5");
+    rect(32, -50, 14, 10);
+    pop();
   }
 }
 
